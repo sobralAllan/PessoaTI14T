@@ -55,7 +55,10 @@ namespace PessoaTI14T
 
         private void Consultar_Click(object sender, EventArgs e)
         {
-
+            maskedTextBox1.Text = "" + pessoa.ConsultarCPF(Convert.ToInt32(textBox1.Text));//Preenchendo o campo CPF
+            textBox2.Text = pessoa.ConsultarNome(Convert.ToInt32(textBox1.Text));//Preenchendo o campo nome
+            maskedTextBox2.Text = pessoa.ConsultarTelefone(Convert.ToInt32(textBox1.Text));//Prenchendo o campo telefone
+            textBox4.Text = pessoa.ConsultarEndereco(Convert.ToInt32(textBox1.Text));
         }//fim do botão consultar
 
         private void Atualizar_Click(object sender, EventArgs e)
