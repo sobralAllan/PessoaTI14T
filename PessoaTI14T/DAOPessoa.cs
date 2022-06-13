@@ -24,6 +24,7 @@ namespace PessoaTI14T
         public int i;//Declarando o contador do for e do while
         public int contador;//Utilizado para contar as voltas do while
         public string msg;
+        public int contarCodigo;
         public DAOPessoa()
         {
             conexao = new MySqlConnection("server=localhost;DataBase=turma14;Uid=root;password=");
@@ -84,6 +85,7 @@ namespace PessoaTI14T
 
             i = 0;//Declaração do contador 0
             contador = 0;//Declarar o contador 0 para o while
+            contarCodigo = 0;//Instanciando o contador para o código
             //Preencher os vetores com dados do banco de dados
             while(leitura.Read())//Enquanto for verdadeiro, executa o que está no while
             {
@@ -92,6 +94,7 @@ namespace PessoaTI14T
                 vetorNome[i]     = leitura["nome"] + "";//Concateno o leitura["nome"] com aspas para torná-lo um texto
                 vetorTelefone[i] = leitura["telefone"] + "";
                 vetorEndereco[i] = leitura["endereco"] + "";
+                contarCodigo = contador;//Armazenando a última posição do contador
                 i++;//Contador sai da posição zero e vai se incrementando
                 contador++;//Contar os loops do while
             }//fim do while
@@ -116,6 +119,12 @@ namespace PessoaTI14T
             }//fim do for
             return msg;//Retorna todos os dados armazenados na variável msg
         }//fim do consultarTudo
+
+        public int ConsultarCodigo()
+        {
+            PreencherVetor();//Preencher os vetores com os dados do BD
+            return vetorCodigo[contarCodigo];
+        }//fim do consultarCodigo
 
         public long ConsultarCPF(int cod)
         {
@@ -170,6 +179,22 @@ namespace PessoaTI14T
         }//fim do consultarEndereco
 
         public void Atualizar(int cod, string campo, string novoDado)
+        {
+            try
+            {
+                string query = "update pessoaTI14T set " + campo + " = '" + novoDado + "' where codigo = '" + cod + "'";
+
+                MySqlCommand sql = new MySqlCommand(query, conexao);
+                string resultado = "" + sql.ExecuteNonQuery();
+                MessageBox.Show(resultado + " Linha Afetada!");
+            }
+            catch (Exception erro)
+            {
+                MessageBox.Show("" + erro);
+            }
+        }//fim do atualizar
+
+        public void Atualizar(int cod, string campo, long novoDado)
         {
             try
             {
