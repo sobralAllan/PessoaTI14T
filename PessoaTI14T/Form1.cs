@@ -62,6 +62,16 @@ namespace PessoaTI14T
             maskedTextBox2.ReadOnly = false;//Telefone
             textBox4.ReadOnly = false;//Endereço
         }//fim do Inativar
+
+        public void AtivarTodosOsCampos()
+        {
+            textBox1.ReadOnly = false;//Código
+            maskedTextBox1.ReadOnly = false;//CPF
+            textBox2.ReadOnly = false;//Nome
+            maskedTextBox2.ReadOnly = false;//Telefone
+            textBox4.ReadOnly = false;//Endereço
+        }
+
         private void Cadastrar_Click(object sender, EventArgs e)
         {
             try
@@ -111,8 +121,9 @@ namespace PessoaTI14T
 
         private void Atualizar_Click(object sender, EventArgs e)
         {
+            
             if (textBox2.Text == "")
-            {
+            { 
                 //Se o campo nome está vazio, então preenche com o dados do banco...
                 maskedTextBox1.Text = "" + pessoa.ConsultarCPF(Convert.ToInt32(textBox1.Text));//Preenchendo o campo CPF
                 textBox2.Text = pessoa.ConsultarNome(Convert.ToInt32(textBox1.Text));//Preenchendo o campo nome
