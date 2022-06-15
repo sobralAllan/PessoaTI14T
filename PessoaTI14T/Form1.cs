@@ -121,7 +121,7 @@ namespace PessoaTI14T
 
         private void Atualizar_Click(object sender, EventArgs e)
         {
-            
+            AtivarTodosOsCampos();
             if (textBox2.Text == "")
             { 
                 //Se o campo nome está vazio, então preenche com o dados do banco...
@@ -133,19 +133,30 @@ namespace PessoaTI14T
             else
             {
                 //Atualizar o CPF
-                pessoa.Atualizar(Convert.ToInt32(textBox1.Text), "CPF", TratarCPF(maskedTextBox1.Text));
+                string atuCPF = pessoa.Atualizar(Convert.ToInt32(textBox1.Text), "CPF", TratarCPF(maskedTextBox1.Text));
                 //Atualizar o Nome
-                pessoa.Atualizar(Convert.ToInt32(textBox1.Text), "nome", textBox2.Text);
+                string atuNome = pessoa.Atualizar(Convert.ToInt32(textBox1.Text), "nome", textBox2.Text);
                 //Atualizar o Telefone
-                pessoa.Atualizar(Convert.ToInt32(textBox1.Text), "telefone", maskedTextBox2.Text);
+                string atuTelefone = pessoa.Atualizar(Convert.ToInt32(textBox1.Text), "telefone", maskedTextBox2.Text);
                 //Atualizar o Endereço
-                pessoa.Atualizar(Convert.ToInt32(textBox1.Text), "endereco", textBox4.Text);
+                string atuEndereco = pessoa.Atualizar(Convert.ToInt32(textBox1.Text), "endereco", textBox4.Text);
+
+                //Resposta...
+                if((atuCPF == "Atualizado!") && (atuNome == "Atualizado!") && (atuTelefone == "Atualizado!") && (atuEndereco == "Atualizado!"))
+                {
+                    MessageBox.Show("Atualizado com Sucesso!");
+                }
+                else
+                {
+                    MessageBox.Show("Não Atualizado!");
+                }
                 Limpar();//Limpo os campos
             }
         }//fim do botão Atualizar
 
         private void Excluir_Click(object sender, EventArgs e)
         {
+            AtivarCampos();
             pessoa.Deletar(Convert.ToInt32(textBox1.Text));
             Limpar();//Limpo os campos
         }//fim do botão Excluir
